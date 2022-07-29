@@ -1,0 +1,91 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "filename": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "report_type": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "last_modified": {
+            "type": [
+                "null",
+                "string"
+              ],
+            "format": "date-time"
+        },
+        "product_line": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "item": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "asin": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "seller": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "tracking_id": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "date_shipped": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "price": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "quantity": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "revenue": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "earnings": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "referral_fee_rate": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

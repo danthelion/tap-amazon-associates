@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "filename": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "report_type": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "associate_id": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "clicks": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "items_ordered": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "items_shipped": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "shipped_revenue": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "referral_fees": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "ordered_revenue": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "shipped_earnings": {
+            "type": [
+                "null",
+                "string"
+              ]
+        }
+    }
+}

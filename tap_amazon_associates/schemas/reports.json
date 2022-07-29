@@ -1,0 +1,242 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "filename": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "report_type": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "product_line": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "item": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "asin": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "seller": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "tracking_id": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "date_shipped": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "price": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "quantity": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "revenue": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "earnings": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "referral_fee_rate": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "subtag": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "date_ordered": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "link_type": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "direct_clicks": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "direct_ordered_quantity": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "indirect_ordered_quantity": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "total_ordered_quantity": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "direct_conversion_percentage": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "associate_id": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "clicks": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "items_ordered": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "items_shipped": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "shipped_revenue": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "referral_fees": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "ordered_revenue": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "shipped_earnings": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "start_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "end_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "website": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "traffic_source": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "page": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "link": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "link_position": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "click_count": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "order_count": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "commission": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

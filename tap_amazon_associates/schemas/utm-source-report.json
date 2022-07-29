@@ -1,0 +1,92 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "filename": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "report_type": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "asin": {
+            "type": [
+                "null",
+                "string"
+              ]
+        },
+        "revenue": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "start_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "end_date": {
+            "type": [
+                "null",
+                "string"
+            ],
+            "format": "date"
+        },
+        "website": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "traffic_source": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "page": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "link": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "link_position": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "click_count": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "order_count": {
+            "type": [
+                "null",
+                "string"
+            ]
+        },
+        "commission": {
+            "type": [
+                "null",
+                "string"
+            ]
+        }
+    }
+}

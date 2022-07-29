@@ -1,0 +1,22 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: d820cbbf-3875-47b3-9396-ee00295b43ee
+plugins:
+  extractors:
+  - name: tap-amazon-associates
+    namespace: tap_amazon_associates
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    - name: username
+    - name: password
+      kind: password
+    - name: start_date
+      value: '2022-07-01T00:00:00Z'
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
