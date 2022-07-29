@@ -30,7 +30,6 @@ class ReportListStream(AmazonAssociatesStream):
     primary_keys = ["filename"]
     replication_key = 'last_modified'
     schema = th.PropertiesList(
-        th.Property("name", th.StringType),
         th.Property(
             "filename",
             th.StringType,
@@ -54,10 +53,13 @@ class ReportListStream(AmazonAssociatesStream):
     ).to_dict()
 
     def extract_report_type(self, filename) -> str:
-        report_type = re.match(
-            r"\w+-20-(.+)-\d{8}\.tsv\.gz",
-            filename
-        ).group(1)
+        try:
+            report_type = re.match(
+                r"\w+-\d{2}-(.+)-\d{8}\.tsv\.gz",
+                filename
+            ).group(1)
+        except AttributeError:
+            self.logger.error(f'Could not extract report type from filename: {filename}')
         return report_type.replace('-', ' ').title().replace(' ', '')
 
     def get_child_context(self, record: Dict, context: Optional[Dict]) -> Dict:
