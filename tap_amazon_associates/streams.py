@@ -206,7 +206,7 @@ class EarningsReportStream(ReportStream):
 
 
 class EarningsSubtagReportStream(ReportStream):
-    name = "EarningsReportSubtag"
+    name = "EarningsReportSubtags"
     parent_stream_type = ReportListStream
     schema_filepath = SCHEMAS_DIR / "earnings-subtag-report.json"
 
@@ -222,7 +222,7 @@ class OrdersReportStream(ReportStream):
 
 
 class OrdersSubtagReportStream(ReportStream):
-    name = "OrdersReportSubtag"
+    name = "OrdersReportSubtags"
     parent_stream_type = ReportListStream
     schema_filepath = SCHEMAS_DIR / "orders-subtag-report.json"
 
