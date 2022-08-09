@@ -57,10 +57,13 @@ class ReportListStream(AmazonAssociatesStream):
             report_type = re.match(
                 r"\w+-\d{2}-(.+)-\d{8}\.tsv\.gz",
                 filename
-            ).group(1)
+            ).group(1).replace('-', ' ').title().replace(' ', '')
         except AttributeError:
             self.logger.error(f'Could not extract report type from filename: {filename}')
-        return report_type.replace('-', ' ').title().replace(' ', '')
+        # the Strategist UK account has subtags in their earnings and orders reports
+        if 'uk-21' in filename and report_type in ['EarningsReport', 'OrdersReport']:
+            report_type += 'Subtags'
+        return report_type
 
     def get_child_context(self, record: Dict, context: Optional[Dict]) -> Dict:
         return {
@@ -171,15 +174,17 @@ class ReportStream(AmazonAssociatesStream):
 
     def parse_response(self, response: requests.Response) -> Iterable[Dict]:
         data = gzip.decompress(response.content).decode('utf-8')
+        rows_in_file = len(list(csv.reader(StringIO(data), delimiter='\t')))
         reader = csv.reader(StringIO(data), delimiter='\t')
         parsed_response = []
         for i, row in enumerate(reader):
             if i == 1:
                 header = row
             elif i > 1:
-                parsed_response.append(
-                    dict(zip(header, row))
-                )
+                parsed_record = dict(zip(header, row))
+                parsed_record['row_number'] = i - 1
+                parsed_record['rows_in_file'] = rows_in_file
+                parsed_response.append(parsed_record)
         yield from parsed_response
 
     def format_key(self, key: str) -> str:

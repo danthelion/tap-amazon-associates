@@ -14,6 +14,25 @@
                 "string"
               ]
         },
+        "last_modified": {
+            "type": [
+                "null",
+                "string"
+              ],
+            "format": "date-time"
+        },
+        "row_number": {
+            "type": [
+                "null",
+                "number"
+              ]
+        },
+        "rows_in_file": {
+            "type": [
+                "null",
+                "number"
+              ]
+        },
         "associate_id": {
             "type": [
                 "null",
