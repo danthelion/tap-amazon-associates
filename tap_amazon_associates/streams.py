@@ -174,7 +174,6 @@ class ReportStream(AmazonAssociatesStream):
 
     def parse_response(self, response: requests.Response) -> Iterable[Dict]:
         data = gzip.decompress(response.content).decode('utf-8')
-        rows_in_file = len(list(csv.reader(StringIO(data), delimiter='\t')))
         reader = csv.reader(StringIO(data), delimiter='\t')
         parsed_response = []
         for i, row in enumerate(reader):
@@ -183,7 +182,6 @@ class ReportStream(AmazonAssociatesStream):
             elif i > 1:
                 parsed_record = dict(zip(header, row))
                 parsed_record['row_number'] = i - 1
-                parsed_record['rows_in_file'] = rows_in_file
                 parsed_response.append(parsed_record)
         yield from parsed_response
 
