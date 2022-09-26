@@ -28,7 +28,7 @@ class AmazonAssociatesStream(RESTStream):
     @property
     def http_headers(self) -> dict:
         """Return the http headers needed."""
-        headers = {}
+        headers = {'accept-encoding': 'gzip'}
         if "user_agent" in self.config:
             headers["User-Agent"] = self.config.get("user_agent")
         # If not using an authenticator, you may also provide inline auth headers:
@@ -64,16 +64,6 @@ class AmazonAssociatesStream(RESTStream):
             params["sort"] = "asc"
             params["order_by"] = self.replication_key
         return params
-
-    def prepare_request_payload(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Optional[dict]:
-        """Prepare the data payload for the REST API request.
-
-        By default, no payload will be sent (return None).
-        """
-        # TODO: Delete this method if no payload is required. (Most REST APIs.)
-        return None
 
     def prepare_request(
         self, context: Optional[dict], next_page_token: Optional[Any]

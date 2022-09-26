@@ -1,16 +1,14 @@
 """Stream type classes for tap-amazon-associates."""
 
-import csv
-from datetime import datetime, timedelta
-import gzip
-import json
-from io import StringIO
+from datetime import datetime
 from pathlib import Path
 import re
-from typing import Any, Dict, Optional, Union, List, Iterable, Callable, Generator
+from typing import Any, Dict, Optional, List, Iterable, Callable, Generator, cast
+import zlib
 
 import backoff
 import requests
+from requests.auth import HTTPDigestAuth
 from singer_sdk import typing as th  # JSON Schema typing helpers
 from singer_sdk.exceptions import RetriableAPIError
 from singer_sdk.helpers._state import (
@@ -139,6 +137,32 @@ class ReportStream(AmazonAssociatesStream):
         else:
             return self.url_base + self.path + context["filename"]
 
+    def decompress_stream(self, stream):
+        o = zlib.decompressobj(16 + zlib.MAX_WBITS)
+
+        for c in stream:
+            yield o.decompress(c)
+
+        yield o.flush()
+
+    def iter_decompressed_lines(self, decompressed_stream):
+        pending = None
+        for c in decompressed_stream:
+            if pending is not None:
+                c = pending + c
+
+            lines = c.splitlines()
+
+            if lines and lines[-1] and c and lines[-1][-1] == c[-1]:
+                pending = lines.pop()
+            else:
+                pending = None
+
+            yield from lines
+
+        if pending is not None:
+            yield pending
+
     def backoff_wait_generator(self) -> Callable[..., Generator[int, Any, None]]:
         return backoff.constant(interval=3)
 
@@ -172,18 +196,49 @@ class ReportStream(AmazonAssociatesStream):
         )(func)
         return decorator
 
-    def parse_response(self, response: requests.Response) -> Iterable[Dict]:
-        data = gzip.decompress(response.content).decode('utf-8')
-        reader = csv.reader(StringIO(data), delimiter='\t')
-        parsed_response = []
-        for i, row in enumerate(reader):
-            if i == 1:
-                header = row
-            elif i > 1:
-                parsed_record = dict(zip(header, row))
-                parsed_record['row_number'] = i - 1
-                parsed_response.append(parsed_record)
-        yield from parsed_response
+    def request_records(self, context: Optional[dict]) -> Iterable[dict]:
+        """Request records from REST endpoint(s), returning response records.
+
+        If pagination is detected, pages will be recursed automatically.
+
+        Args:
+            context: Stream partition or context dictionary.
+
+        Yields:
+            An item for every record in the response.
+
+        Raises:
+            RuntimeError: If a loop in pagination is detected. That is, when two
+                consecutive pagination tokens are identical.
+        """
+        url: str = self.get_url(context)
+        headers = self.http_headers
+        resp = requests.get(
+            url=url,
+            headers=headers,
+            auth=HTTPDigestAuth(
+                self.config.get('username'),
+                self.config.get('password')
+            ),
+            stream=True
+        )
+        yield from self.parse_response(resp)
+
+    def parse_response(
+        self,
+        response: requests.Response
+    ) -> Iterable[Dict]:
+        for i, c in enumerate(
+            self.iter_decompressed_lines(
+                self.decompress_stream(response)
+            )
+        ):
+            if c:
+                if i == 1:
+                    headers = c.decode().split('\t')
+                elif i > 1:
+                    c_arr = c.decode().split('\t')
+                    yield {k: v.replace('""', '') for k, v in zip(headers, c_arr)}
 
     def format_key(self, key: str) -> str:
         """Format key for stream."""
